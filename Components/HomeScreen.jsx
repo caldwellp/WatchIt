@@ -1,12 +1,14 @@
-import React from 'react';
-import { View, Text, Button } from 'react-native';
-import { StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import NumericInput from './NumericInput';
 
 const HomeScreen = ({ navigation }) => {
+  const [userNumber, setUserNumber] = useState('');
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to WatchIt!</Text>
-      <Button title="Time Athletes" onPress={() => navigation.navigate('AthleteNames')} />
+      <NumericInput setUserNumber={setUserNumber} />
+      <Button title="Time Athletes" onPress={() => navigation.navigate('AthleteNames', {userNumber})} />
     </View>
   );
 };
