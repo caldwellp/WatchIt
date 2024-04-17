@@ -8,7 +8,7 @@ const HomeScreen = ({ navigation }) => {
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to WatchIt!</Text>
       <NumericInput setUserNumber={setUserNumber} />
-      <Button title="Time Athletes" onPress={() => navigation.navigate('AthleteNames', {userNumber})} />
+      <Button title="Time Athletes" onPress={() => navigation.navigate('AthleteNameList', {userNumber})} />
     </View>
   );
 };
