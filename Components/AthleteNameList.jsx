@@ -1,17 +1,20 @@
-import React from 'react';
-import { View, Text, Button, FlatList, TextInput } from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, FlatList, Button } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 const AthleteNameList = ({ navigation }) => {
   const route = useRoute();
   const userNumber = route.params?.userNumber || '';
-  const data = Array.from({ length: userNumber }, (_, index) => ({ key: String(index) }));
+
+  const [data, setData] = useState(Array.from({ length: userNumber }, (_, index) => ({ key: String(index+1) })));
+  const [textInputs, setTextInputs] = useState(Array.from({ length: userNumber }, () => ''));
 
   const renderItem = ({ item }) => (
     <View style={{ marginVertical: 10 }}>
       <TextInput
         placeholder={`Athlete ${item.key}`}
-        style={{ borderWidth: 1, padding: 10 }}
+        placeholderTextColor="gray"
+        style={{ borderWidth: 1, padding: 10, fontSize: 16, color: 'black' }}
       />
     </View>
   );
