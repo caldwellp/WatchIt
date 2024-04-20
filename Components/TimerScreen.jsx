@@ -15,7 +15,7 @@ const TimerScreen = () => {
       const startTime = Date.now() - elapsedTime;
       intervalRef.current = setInterval(() => {
         setElapsedTime(Date.now() - startTime);
-      }, 10); // Update every 10 milliseconds
+      }, 10); 
     } else {
       clearInterval(intervalRef.current);
     }
@@ -41,14 +41,15 @@ const TimerScreen = () => {
     const totalSeconds = Math.floor(milliseconds / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
-    const mseconds = Math.floor((milliseconds % 1000) / 10); // Keep milliseconds to two decimal places
+    const mseconds = Math.floor((milliseconds % 1000) / 10); 
     const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}.${mseconds.toString().padStart(2, '0')}`;
     return formattedTime;
   };
 
   return (
-     <View style={styles.container}>
-      <Text style={styles.timerText}>{formatTime(elapsedTime)}</Text>
+    <View style={styles.container}>
+    <Text style={styles.timerText}>{formatTime(elapsedTime)}</Text>
+    <View style={styles.buttonsContainer}>
       <TouchableOpacity onPress={handleStartStop} style={styles.button}>
         <Text style={styles.buttonText}>{isRunning ? 'Stop' : 'Start'}</Text>
       </TouchableOpacity>
@@ -58,13 +59,14 @@ const TimerScreen = () => {
       <TouchableOpacity onPress={handleSplit} style={styles.button}>
         <Text style={styles.buttonText}>Split</Text>
       </TouchableOpacity>
-      <View style={styles.splitTimesContainer}>
-        {splitTimes.map((split, index) => (
-          <Text key={index} style={styles.splitTimeText}>
-            Split {index + 1}: {formatTime(split)}
-          </Text>
-        ))}
-      </View>
+    </View>
+    <View style={styles.splitTimesContainer}>
+      {splitTimes.map((split, index) => (
+        <Text key={index} style={styles.splitTimeText}>
+          Split {index + 1}: {formatTime(split)}
+        </Text>
+      ))}
+    </View>
       {inputValues.map((value, index) => (
         <Text key={index}>{`Athlete ${index + 1}: ${value}`}</Text>
       ))}
@@ -82,11 +84,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 20,
   },
+  buttonsContainer: {
+    flexDirection: 'row', // Display buttons horizontally
+    marginBottom: 20,
+  },
   button: {
     backgroundColor: '#007AFF',
     padding: 10,
     borderRadius: 5,
     marginBottom: 10,
+    marginRight: 10,
   },
   buttonText: {
     color: 'white',
