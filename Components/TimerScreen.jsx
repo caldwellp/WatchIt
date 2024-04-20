@@ -7,7 +7,12 @@ const TimerScreen = () => {
   const inputValues = route.params?.inputValues || '';
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [splitTimes, setSplitTimes] = useState([]);
+  
+  const initialAthletes = inputValues.map((value, index) => ({
+    name: `Athlete ${index + 1}: ${value}`,
+    splits: [],
+  }));
+  const [athletes, setAthletes] = useState(initialAthletes);
   const intervalRef = useRef(null);
 
   useEffect(() => {
@@ -27,14 +32,10 @@ const TimerScreen = () => {
   };
 
   const handleReset = () => {
-    setElapsedTime(0);
-    setSplitTimes([]);
+    setElapsedTime(0); 
+    
     clearInterval(intervalRef.current);
     setIsRunning(false);
-  };
-
-  const handleSplit = () => {
-    setSplitTimes((prevSplits) => [...prevSplits, elapsedTime]);
   };
 
   const formatTime = (milliseconds) => {
@@ -44,6 +45,12 @@ const TimerScreen = () => {
     const mseconds = Math.floor((milliseconds % 1000) / 10); 
     const formattedTime = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}.${mseconds.toString().padStart(2, '0')}`;
     return formattedTime;
+  };
+
+  const handleAssignToAthlete = (athleteIndex) => {
+    const selectedAthlete = athletes[athleteIndex];
+    selectedAthlete.splits.push(elapsedTime);
+    setAthletes([...athletes]);
   };
 
   return (
@@ -56,19 +63,18 @@ const TimerScreen = () => {
       <TouchableOpacity onPress={handleReset} style={styles.button}>
         <Text style={styles.buttonText}>Reset</Text>
       </TouchableOpacity>
-      <TouchableOpacity onPress={handleSplit} style={styles.button}>
-        <Text style={styles.buttonText}>Split</Text>
-      </TouchableOpacity>
     </View>
-    <View style={styles.splitTimesContainer}>
-      {splitTimes.map((split, index) => (
-        <Text key={index} style={styles.splitTimeText}>
-          Split {index + 1}: {formatTime(split)}
-        </Text>
-      ))}
-    </View>
-      {inputValues.map((value, index) => (
-        <Text key={index}>{`Athlete ${index + 1}: ${value}`}</Text>
+    {athletes.map((athlete, index) => (
+        <TouchableOpacity
+          key={index}
+          style={styles.athlete}
+          onPress={() => handleAssignToAthlete(index)}
+        >
+          <Text style={styles.athleteName}>{athlete.name}</Text>
+          <Text style={styles.athleteSplits}>
+            Splits: {athlete.splits.map((split) => formatTime(split)).join(', ')}
+          </Text>
+        </TouchableOpacity>
       ))}
     </View>
   );
@@ -85,7 +91,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonsContainer: {
-    flexDirection: 'row', // Display buttons horizontally
+    flexDirection: 'row', 
     marginBottom: 20,
   },
   button: {
@@ -98,9 +104,6 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 16,
-  },
-  splitTimesContainer: {
-    marginTop: 20,
   },
   splitTimeText: {
     fontSize: 16,
