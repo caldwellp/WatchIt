@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 
 const TimerScreen = () => {
@@ -72,22 +72,24 @@ const TimerScreen = () => {
       <TouchableOpacity onPress={handleReset} style={styles.button}>
         <Text style={styles.buttonText}>Reset</Text>
       </TouchableOpacity>
-    </View>
-    {athletes.map((athlete, index) => (
-        <TouchableOpacity
-          key={index}
-          style={styles.athlete}
-          onPress={() => handleAssignToAthlete(index)}
-        >
-          <Text style={styles.athleteName}>{athlete.name}</Text>
-          <Text style={styles.athleteSplits}>
-            Splits: {athlete.splits.map((split) => formatTime(split)).join(', ')}
-          </Text>
-          <Text style={styles.athleteIntervals}>
+      </View>
+      <ScrollView style={styles.athleteList}>
+        {athletes.map((athlete, index) => (
+          <TouchableOpacity
+            key={index}
+            style={styles.athlete}
+            onPress={() => handleAssignToAthlete(index)}
+          >
+            <Text style={styles.athleteName}>{athlete.name}</Text>
+            <Text style={styles.athleteSplits}>
+              Splits: {athlete.splits.map((split) => formatTime(split)).join(', ')}
+            </Text>
+            <Text style={styles.athleteIntervals}>
               Intervals: {calculateIntervals(athlete.splits).map((interval) => formatTime(interval)).join(', ')}
             </Text>
-        </TouchableOpacity>
-      ))}
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
     </View>
   );
 };
@@ -119,6 +121,26 @@ const styles = StyleSheet.create({
   },
   splitTimeText: {
     fontSize: 16,
+  },
+  athleteList: {
+    flex: 1,
+    width: '100%',
+  },
+  athlete: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderColor: '#E0E0E0',
+  },
+  athleteName: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  athleteSplits: {
+    fontSize: 16,
+  },
+  athleteIntervals: {
+    fontSize: 14,
+    color: '#888',
   },
 });
 
