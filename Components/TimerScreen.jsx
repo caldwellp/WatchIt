@@ -7,7 +7,6 @@ const TimerScreen = () => {
   const inputValues = route.params?.inputValues || '';
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
-  
   const initialAthletes = inputValues.map((value, index) => ({
     name: `Athlete ${index + 1}: ${value}`,
     splits: [],
@@ -53,6 +52,16 @@ const TimerScreen = () => {
     setAthletes([...athletes]);
   };
 
+  const calculateIntervals = (splits) => {
+    const intervals = [];
+    if (splits[0] != null) {intervals.push(splits[0])}
+    for (let i = 1; i < splits.length; i++) {
+      const interval = splits[i] - splits[i - 1];
+      intervals.push(interval);
+    }
+    return intervals;
+  };
+
   return (
     <View style={styles.container}>
     <Text style={styles.timerText}>{formatTime(elapsedTime)}</Text>
@@ -74,6 +83,9 @@ const TimerScreen = () => {
           <Text style={styles.athleteSplits}>
             Splits: {athlete.splits.map((split) => formatTime(split)).join(', ')}
           </Text>
+          <Text style={styles.athleteIntervals}>
+              Intervals: {calculateIntervals(athlete.splits).map((interval) => formatTime(interval)).join(', ')}
+            </Text>
         </TouchableOpacity>
       ))}
     </View>
