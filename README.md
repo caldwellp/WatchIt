@@ -19,4 +19,5 @@ $ npx expo start
 
 # How to use
 - Fr
- 
+<img src="https://github.com/caldwellp/WatchIt/issues/2" width="200" />
+
