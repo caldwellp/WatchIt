@@ -1,6 +1,4 @@
-[![Watch the video](https://youtu.be/tG78Z9n8WkY)](https://youtu.be/tG78Z9n8WkY)
-
-https://youtu.be/tG78Z9n8WkY
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/tG78Z9n8WkY/0.jpg)](https://www.youtube.com/watch?v=tG78Z9n8WkY)
 
 # WatchIt App
 As a track and field coach, it is important to record split times of multiple athletes during meets and practices to keep track of an athlete's progress. A classic hand stop watch is useful when track a single athlete or relay team, but when trying to keep track of multiple lap splits for multiple athletes, most stop watches require caculating intervals by hand. This becomes a time consuming burden when the athletes like to see their times quickly after completing the race. The goal of this app is to calculate and provide interval and split times in real time for multiple athletes at once. 
