@@ -19,5 +19,4 @@ $ npx expo start
 
 # How to use
 - Fr
-- <img src="![IMG_4495](https://github.com/caldwellp/WatchIt/assets/39379110/30808ee4-9e4c-4bc7-b651-261f66f12dfa)" width="100" height="100"/>
  
